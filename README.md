@@ -6,7 +6,7 @@
 
 ---
 
-**`hrple`** is a easy use tool to help you create habits. This is loosely inspired by the on the book *Atomic Habits* by *James Clear* and techniques or frameworks like *Kanban* and the *Pomodoro Technique*.
+**`hrple`** is an easy to use tool to help you create habits. This is loosely inspired by the book *Atomic Habits* by *James Clear* and techniques or frameworks like *Kanban* and the *Pomodoro Technique*.
 
 ---
 
@@ -21,19 +21,16 @@
 
 A not so long list of milestones, just something to work towards.
 
-- [ ] To manage "*habits*" via the cli to local storage (***current milestone***)
+- [ ] **v1** - To manage "*habits*" via the cli to local storage (***current milestone***)
   - [ ] :construction: Implement own light weight `pkg/cli` lib
   - [ ] Implement `file` local storage with own lib `plg/fileDb`
-  - [ ] Implement `sqlite` local storage 
-- [ ] To manage "*habits*" via the cli to central cloud storage utlising GRPC * ProtoBuf
+- [ ] **v1.1** - To manage "*habits*" via the cli to local storage using sqlite
+  - [ ] Implement `sqlite` local storage  
+- [ ] **v2** - To manage "*habits*" via the cli to central cloud storage utlising GRPC * ProtoBuf
   - [ ] Central `proto` definition repo
   - [ ] Implement Server component  
     - [ ] *...insert rest of the items here...*
-- [ ] To manage "*habits*" via the cli to central cloud storage utlising GRPC * ProtoBuf
-  - [ ] Central `proto` definition repo
-  - [ ] Server Component
   - [ ] Client Component
-
 ---
 
 ## Project Structure
