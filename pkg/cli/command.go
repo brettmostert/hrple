@@ -33,12 +33,14 @@ func (parentCmd *Command) Execute() error {
 	}
 
 	var cmdToExecute *Command
+
 	switch {
 	case argsLen == 0:
 		cmdToExecute = parentCmd
 	case argsLen > 0:
 		cmdToExecute = parentCmd.findCommandToExecute(args)
 	}
+
 	if cmdToExecute == nil {
 		return exitError.New("Command not found", exitError.NotFound)
 	}
@@ -73,19 +75,22 @@ func (rootCmd *Command) findCommandToExecute(args []string) *Command {
 		if command != nil {
 			command = innerfind(command, innerArgs[1:])
 		}
+
 		return command
 	}
 
 	// flag.Args()
 	parentCmd := rootCmd.findNext(args)
-	fmt.Printf("Logging, parentCmd->Command.Name: %v \n", parentCmd.Name)
 	if parentCmd != nil {
+		fmt.Printf("Logging, parentCmd->Command.Name: %v \n", parentCmd.Name)
+
 		// TODO: After implementing UnitTests, clean up, implement flags and args
 		// command = innerfind(command, args[1:])
 		// a := args[1:]
 		// if command.flagSet != nil {
 		// 	a = command.flagSet.Args()
 		// }
+
 		command = innerfind(parentCmd, args[1:])
 		if command != nil {
 			fmt.Printf("Logging, childCmd->Command.Name: %v \n", command.Name)
@@ -95,7 +100,6 @@ func (rootCmd *Command) findCommandToExecute(args []string) *Command {
 				command = parentCmd
 			}
 		}
-
 	}
 
 	// TODO: After implementing UnitTests, clean up, implement flags and args

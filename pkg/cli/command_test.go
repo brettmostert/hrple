@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// TODO: Implement unit tests
+// TODO: Implement unit tests.
 func TestFindCommandToExecute(t *testing.T) {
 	var tests = []struct {
 		name     string

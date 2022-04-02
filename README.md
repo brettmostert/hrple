@@ -21,17 +21,40 @@
 
 A not so long list of milestones, just something to work towards.
 
-- [ ] **v1** - To manage "*habits*" via the cli to local storage (***current milestone***)
-  - [ ] :construction: Implement own light weight `pkg/cli` lib
-  - [ ] Implement `file` local storage with own lib `plg/fileDb`
-- [ ] **v1.1** - To manage "*habits*" via the cli to local storage using sqlite
-  - [ ] Implement `sqlite` local storage  
-- [ ] **v2** - To manage "*habits*" via the cli to central cloud storage utlising GRPC * ProtoBuf
+- [ ] **v1** - To manage "*habits*" via the `cli` and `grpc` (***current milestone***)
+  - [ ] :construction: Implement own light weight `pkg/cli` lib  
   - [ ] Central `proto` definition repo
-  - [ ] Implement Server component  
-    - [ ] *...insert rest of the items here...*
-  - [ ] Client Component
+  - [ ] Implement Server component
+    - [ ] auth
+      - [ ] auth
+      - [ ] registration
+      - [ ] profile (modify)
+    - [ ] api-gateway      
+    - [ ] Habit Tracker
+      - [ ] Add/Modify
+      - [ ] History
+      - [ ] Pause
+      - [ ] Track (Did you do it? How did it feel? Rate it? Share it?)
+- [ ] **v1.1** - Android App
+- [ ] **v1.2** - IOS App
+- [ ] **v1.3** - Windows App
+- [ ] **v1.4** - Desktop App
+
 ---
+
+## Technology
+
+Below is a list of the technology primarily used in this project.
+
+### Backend
+
+- Go (aka golang)
+- GRPC, REST, GQL
+- K8s & Docker
+
+### FrontEnd
+
+- Flutter & Dart
 
 ## Project Structure
 
