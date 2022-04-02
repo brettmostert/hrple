@@ -2,29 +2,58 @@ package cli
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
-// TODO: Implement unit tests.
+func SetupCliForTesting() *Command {
+	rootCommand := &Command{
+		Name: "cli",
+	}
+
+	rootCommand.AddCommand(&Command{
+		Name: "subCmdA",
+	})
+
+	subCmdB := &Command{
+		Name: "subCmdB",
+	}
+
+	subCmdB.AddCommand(&Command{
+		Name: "subCmdB-1",
+	})
+
+	rootCommand.AddCommand(subCmdB)
+
+	return rootCommand
+}
+
 func TestFindCommandToExecute(t *testing.T) {
+	rootCommand := SetupCliForTesting()
+
 	var tests = []struct {
 		name     string
 		command  string
 		expected string
 	}{
-		{"root cmd", "cli", "cli"},
-		{"1 subcommand", "cli a", "cli a"},
+		{"find subCmdA", "subCmdA", "subCmdA"},
+		{"find subCmdB", "subCmdB", "subCmdB"},
+		{"find subCmdB-1", "subCmdB subCmdB-1", "subCmdB-1"},
 	}
 
 	for _, tc := range tests {
-		tc := tc
 		testname := fmt.Sprintf("%v - %v", tc.name, tc.command)
+
 		t.Run(testname, func(t *testing.T) {
-			// ans := FindCommandToExecute(tt.a, tt.b)
-			// if ans != tt.want {
-			t.Parallel()
-			t.Errorf("got: %v; wanted: %v", nil, tc.expected)
-			// }
+			cmd := rootCommand.findSubCommandToExecute(strings.Split(tc.command, " "))
+
+			if cmd == nil || cmd.Name != tc.expected {
+				t.Errorf("got: %v; wanted: %v", nil, tc.expected)
+			}
+
+			if cmd != nil && cmd.Name != tc.expected {
+				t.Errorf("got: %v; wanted: %v", cmd.Name, tc.expected)
+			}
 		})
 	}
 }
