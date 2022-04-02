@@ -45,7 +45,7 @@ func TestFindCommandToExecute(t *testing.T) {
 		testname := fmt.Sprintf("%v - %v", tc.name, tc.command)
 
 		t.Run(testname, func(t *testing.T) {
-			cmd := rootCommand.findSubCommandToExecute(strings.Split(tc.command, " "))
+			cmd := rootCommand.findCommand(strings.Split(tc.command, " "))
 
 			if cmd == nil || cmd.Name != tc.expected {
 				t.Errorf("got: %v; wanted: %v", nil, tc.expected)

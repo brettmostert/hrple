@@ -38,7 +38,7 @@ func (parentCmd *Command) Execute() error {
 	case argsLen == 0:
 		cmdToExecute = parentCmd
 	case argsLen > 0:
-		cmdToExecute = parentCmd.findSubCommandToExecute(args)
+		cmdToExecute = parentCmd.findCommand(args)
 	}
 
 	if cmdToExecute == nil {
@@ -61,7 +61,7 @@ func (cmd *Command) findNext(args []string) *Command {
 	return nextCommand
 }
 
-func (rootCmd *Command) findSubCommandToExecute(args []string) *Command {
+func (rootCmd *Command) findCommand(args []string) *Command {
 	var command *Command
 
 	var innerfind func(*Command, []string) *Command
