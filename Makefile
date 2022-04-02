@@ -1,12 +1,19 @@
-sca:
+test: sca testOnly
+
+build: sca testOnly buildOnly	
+
+sca: 
 	@sh -c "'$(CURDIR)/scripts/sca.sh'"
 
-static-code-analysis:
-	@sh -c "'$(CURDIR)/scripts/sca.sh'"
-
-build: sca
+buildOnly:
 	@sh -c "'$(CURDIR)/scripts/build.sh'"
+
+testOnly:
+	@sh -c "'$(CURDIR)/scripts/test.sh'"
+
+clean:
+	@sh -c "'$(CURDIR)/scripts/clean.sh'"
 
 .NOTPARALLEL:
 
-.PHONY: sca static-code-analysis build
+.PHONY: sca build buildOnly test testOnly clean

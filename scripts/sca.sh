@@ -5,7 +5,7 @@ getProjectDir
 echo -e "==> ${CYAN}Checking that code complies with static analysis requirements...${NC}"
 
 OUTPUT=$(golangci-lint run --color=always)
-echo
+
 if [[ -z "${OUTPUT}" ]]; then
     echo -e "==> ${YELLOW}Result... ${GREEN}ALL GOOD!!!${NC}"
     echo

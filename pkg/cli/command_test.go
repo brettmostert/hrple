@@ -25,6 +25,13 @@ func SetupCliForTesting() *Command {
 
 	rootCommand.AddCommand(subCmdB)
 
+	subCmdC := &Command{
+		Name: "subCmdC",
+		Args: []string{"arg1", "arg2"},
+	}
+
+	rootCommand.AddCommand(subCmdC)
+
 	return rootCommand
 }
 
@@ -39,6 +46,8 @@ func TestFindCommandToExecute(t *testing.T) {
 		{"find subCmdA", "subCmdA", "subCmdA"},
 		{"find subCmdB", "subCmdB", "subCmdB"},
 		{"find subCmdB-1", "subCmdB subCmdB-1", "subCmdB-1"},
+		{"find cmd404", "cmd404", ""},
+		{"find subCmdC with parameter value a", "subCmdC arg1", "subCmdC"},
 	}
 
 	for _, tc := range tests {
@@ -47,11 +56,11 @@ func TestFindCommandToExecute(t *testing.T) {
 		t.Run(testname, func(t *testing.T) {
 			cmd := rootCommand.findCommand(strings.Split(tc.command, " "))
 
-			if cmd == nil || cmd.Name != tc.expected {
+			if (cmd == nil && tc.expected != "") || (tc.expected != "" && cmd.Name != tc.expected) {
 				t.Errorf("got: %v; wanted: %v", nil, tc.expected)
 			}
 
-			if cmd != nil && cmd.Name != tc.expected {
+			if (cmd != nil && tc.expected != "") && cmd.Name != tc.expected {
 				t.Errorf("got: %v; wanted: %v", cmd.Name, tc.expected)
 			}
 		})

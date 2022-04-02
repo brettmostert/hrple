@@ -16,8 +16,8 @@ func NewExecuter() *Executer {
 		ShortDescription: "hrple-cli",
 		LongDescription:  "Create a hrple of habits",
 		Example:          "hrple-cli",
-		Run:              ExecuteCmd,
-		HelpType:         cli.Default,
+		Run:              DefaultCmd,
+		// HelpType:         cli.Default, // Change this to be Help as Text then display that as default if nothing then generate
 	}
 
 	e := &Executer{
@@ -34,7 +34,7 @@ func (e *Executer) Execute() error {
 	return e.rootCommand.Execute()
 }
 
-func ExecuteCmd(cmd *cli.Command, args []string) error {
-	fmt.Printf("root")
+func DefaultCmd(cmd *cli.Command, args []string) error {
+	fmt.Printf("Default Command")
 	return nil
 }

@@ -82,20 +82,18 @@ func (rootCmd *Command) findCommand(args []string) *Command {
 	// flag.Args()
 	parentCmd := rootCmd.findNext(args)
 	if parentCmd != nil {
-		fmt.Printf("Logging, parentCmd->Command.Name: %v \n", parentCmd.Name)
-
 		// TODO: After implementing UnitTests, clean up, implement flags and args
 		// command = innerfind(command, args[1:])
 		// a := args[1:]
 		// if command.flagSet != nil {
 		// 	a = command.flagSet.Args()
 		// }
-
 		command = innerfind(parentCmd, args[1:])
-		if command != nil {
-			fmt.Printf("Logging, childCmd->Command.Name: %v \n", command.Name)
-		} else {
+		if command == nil {
+			// fmt.Printf("Logging, childCmd->Command.Name: %v \n", command.Name)
+			// } else {
 			fmt.Printf("Logging, Command is Nil, Parent Command %v\n", parentCmd.Name)
+
 			if len(parentCmd.Args) > 0 {
 				command = parentCmd
 			}
