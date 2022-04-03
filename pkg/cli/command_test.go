@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+
+	"github.com/brettmostert/hrple/pkg/testHelper"
 )
 
 func SetupCliForTesting() *Command {
@@ -35,7 +37,7 @@ func SetupCliForTesting() *Command {
 	return rootCommand
 }
 
-func TestFindCommandToExecute(t *testing.T) {
+func TestFindCommand(t *testing.T) {
 	rootCommand := SetupCliForTesting()
 
 	var tests = []struct {
@@ -65,4 +67,30 @@ func TestFindCommandToExecute(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestAddCommandCannotBeChildOfSelf(t *testing.T) {
+	cmd := &Command{
+		Name: "subCmdB",
+	}
+
+	add := func() {
+		cmd.AddCommand(cmd)
+	}
+
+	testHelper.ShouldPanic(t, add, "Command cannot be a child of itself")
+}
+
+func TestAddCommandParentAndChildCannotHaveSameName(t *testing.T) {
+	parent := &Command{
+		Name: "parent",
+	}
+
+	add := func() {
+		parent.AddCommand(&Command{
+			Name: "parent",
+		})
+	}
+
+	testHelper.ShouldPanic(t, add, "Parent command and child command cannot have the same name")
 }
