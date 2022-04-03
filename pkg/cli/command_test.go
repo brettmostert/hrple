@@ -8,13 +8,20 @@ import (
 	"github.com/brettmostert/hrple/pkg/testHelper"
 )
 
+func ExecuteTestCommand(cmd *Command, args []string) error {
+	return nil
+}
+
 func SetupCliForTesting() *Command {
+
 	rootCommand := &Command{
 		Name: "cli",
+		Run:  ExecuteTestCommand,
 	}
 
 	rootCommand.AddCommand(&Command{
 		Name: "subCmdA",
+		Run:  ExecuteTestCommand,
 	})
 
 	subCmdB := &Command{
@@ -30,6 +37,7 @@ func SetupCliForTesting() *Command {
 	subCmdC := &Command{
 		Name: "subCmdC",
 		Args: []string{"arg1", "arg2"},
+		Run:  ExecuteTestCommand,
 	}
 
 	rootCommand.AddCommand(subCmdC)
@@ -93,4 +101,37 @@ func TestAddCommandParentAndChildCannotHaveSameName(t *testing.T) {
 	}
 
 	testHelper.ShouldPanic(t, add, "Parent command and child command cannot have the same name")
+}
+
+func TestExecuteParent(t *testing.T) {
+	cli := SetupCliForTesting()
+
+	err := cli.Execute(Options{})
+	if err != nil {
+		t.Errorf("got: %v; wanted no errors", err)
+	}
+}
+
+func TestExecuteSubCommand(t *testing.T) {
+	cli := SetupCliForTesting()
+
+	err := cli.Execute(Options{
+		Args: []string{"subCmdA"},
+	})
+	if err != nil {
+		t.Errorf("got: %v; wanted no errors", err)
+	}
+}
+
+func TestExecuteCannotFindCommand(t *testing.T) {
+	expected := "Command not found, args: subCmd404"
+	cli := SetupCliForTesting()
+
+	err := cli.Execute(Options{
+		Args: []string{"subCmd404"},
+	})
+
+	if err == nil || err.Error() != expected {
+		t.Errorf("got: '%v'; wanted the following error '%v'", err, expected)
+	}
 }

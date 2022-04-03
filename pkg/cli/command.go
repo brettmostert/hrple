@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/brettmostert/hrple/pkg/errors/exitError"
 )
@@ -24,28 +25,36 @@ type Command struct {
 	commands []*Command
 }
 
-func (parentCmd *Command) Execute() error {
-	args := os.Args[1:]
-	argsLen := len(args)
+type Options struct {
+	Args []string
+}
 
-	if argsLen == 0 {
-		return parentCmd.Run(parentCmd, args)
+func (cmd *Command) Execute(options ...Options) error {
+	args := os.Args[1:]
+
+	if len(options) > 0 {
+		args = options[0].Args
 	}
 
+	argsLen := len(args)
+
 	var cmdToExecute *Command
+	var argsToExecute []string
 
 	switch {
 	case argsLen == 0:
-		cmdToExecute = parentCmd
+		cmdToExecute = cmd
+		argsToExecute = args
 	case argsLen > 0:
-		cmdToExecute = parentCmd.findCommand(args)
+		cmdToExecute = cmd.findCommand(args)
+		argsToExecute = args[1:]
 	}
 
 	if cmdToExecute == nil {
-		return exitError.New("Command not found", exitError.NotFound)
+		return exitError.New("Command not found, args: "+strings.Join(args, " "), exitError.NotFound)
 	}
 
-	return cmdToExecute.Run(parentCmd, args[1:])
+	return cmdToExecute.Run(cmd, argsToExecute)
 }
 
 func (cmd *Command) findNext(args []string) *Command {
