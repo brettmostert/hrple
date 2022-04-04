@@ -10,7 +10,7 @@ import (
 
 func main() {
 	e := commands.NewExecuter()
-	if err := e.Execute(); err != nil {
+	if _, err := e.Execute(); err != nil {
 		fmt.Printf("failed executing command with error (%v)\n", err)
 		os.Exit(int(exitError.Failure))
 	}

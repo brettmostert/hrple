@@ -8,12 +8,16 @@ import (
 	"github.com/brettmostert/hrple/pkg/testHelper"
 )
 
-func ExecuteTestCommand(cmd *Command, args []string) error {
-	return nil
+func ExecuteTestCommand(cmd *Command, args []string) ([]interface{}, error) {
+	returnValue := make([]interface{}, len(args))
+	for i := range args {
+		returnValue[i] = args[i]
+	}
+
+	return returnValue, nil
 }
 
 func SetupCliForTesting() *Command {
-
 	rootCommand := &Command{
 		Name: "cli",
 		Run:  ExecuteTestCommand,
@@ -67,11 +71,11 @@ func TestFindCommand(t *testing.T) {
 			cmd := rootCommand.findCommand(strings.Split(tc.command, " "))
 
 			if (cmd == nil && tc.expected != "") || (tc.expected != "" && cmd.Name != tc.expected) {
-				t.Errorf("got: %v; wanted: %v", nil, tc.expected)
+				t.Errorf("expected: '%v', got: '%v'", tc.expected, nil)
 			}
 
 			if (cmd != nil && tc.expected != "") && cmd.Name != tc.expected {
-				t.Errorf("got: %v; wanted: %v", cmd.Name, tc.expected)
+				t.Errorf("expected: '%v', got: '%v'", tc.expected, cmd.Name)
 			}
 		})
 	}
@@ -106,20 +110,48 @@ func TestAddCommandParentAndChildCannotHaveSameName(t *testing.T) {
 func TestExecuteParent(t *testing.T) {
 	cli := SetupCliForTesting()
 
-	err := cli.Execute(Options{})
-	if err != nil {
-		t.Errorf("got: %v; wanted no errors", err)
+	var expected []interface{}
+
+	returnValues, err := cli.Execute(Options{})
+
+	if err != nil && len(returnValues) != len(expected) {
+		t.Errorf("expected: '%v' with no errors, got: '%v', error: '%v'", expected, returnValues, err)
 	}
 }
 
 func TestExecuteSubCommand(t *testing.T) {
 	cli := SetupCliForTesting()
 
-	err := cli.Execute(Options{
+	returnValues, err := cli.Execute(Options{
 		Args: []string{"subCmdA"},
 	})
-	if err != nil {
-		t.Errorf("got: %v; wanted no errors", err)
+
+	var expected []interface{}
+
+	if err != nil && len(returnValues) != len(expected) {
+		t.Errorf("expected: '%v' with no errors, got: '%v', error: '%v'", expected, returnValues, err)
+	}
+}
+
+func TestExecuteSubCommandWithParam(t *testing.T) {
+	cli := SetupCliForTesting()
+
+	returnValues, err := cli.Execute(Options{
+		Args: []string{"subCmdC", "abc", "xyz"},
+	})
+
+	expected := make([]interface{}, 2)
+	expected[0] = "abc"
+	expected[1] = "xyz"
+
+	if err != nil && len(returnValues) != len(expected) {
+		t.Errorf("expected: '%v' with no errors, got: '%v', error: '%v'", expected, returnValues, err)
+	}
+
+	for i := range expected {
+		if returnValues[i] != expected[i] {
+			t.Errorf("expected: '%v' at index '%v', got: '%v'", returnValues[i], i, expected[i])
+		}
 	}
 }
 
@@ -127,7 +159,7 @@ func TestExecuteCannotFindCommand(t *testing.T) {
 	expected := "Command not found, args: subCmd404"
 	cli := SetupCliForTesting()
 
-	err := cli.Execute(Options{
+	_, err := cli.Execute(Options{
 		Args: []string{"subCmd404"},
 	})
 

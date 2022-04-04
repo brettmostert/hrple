@@ -13,7 +13,7 @@ func ShouldPanic(t *testing.T, f func(), panicMessage ...string) {
 			if len(panicMessage) != 0 {
 				msg := panicMessage[0]
 				if msg != recoveryMessageString {
-					t.Errorf("message '%v' does not equal expected value '%v'", recoveryMessage, msg)
+					t.Errorf("expected: '%v', got: '%v'", msg, recoveryMessage)
 				}
 			}
 		}

@@ -30,11 +30,11 @@ func NewExecuter() *Executer {
 	return e
 }
 
-func (e *Executer) Execute() error {
+func (e *Executer) Execute() (interface{}, error) {
 	return e.rootCommand.Execute()
 }
 
-func DefaultCmd(cmd *cli.Command, args []string) error {
+func DefaultCmd(cmd *cli.Command, args []string) ([]interface{}, error) {
 	fmt.Printf("Default Command")
-	return nil
+	return nil, nil
 }

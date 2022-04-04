@@ -22,10 +22,10 @@ func (e *Executer) initTest() {
 	e.rootCommand.AddCommand(cmd)
 }
 
-func ExecuteTest(cmd *cli.Command, args []string) error {
-	return exitError.New("ExecuteTest, not implemented", exitError.NotImplemented)
+func ExecuteTest(cmd *cli.Command, args []string) ([]interface{}, error) {
+	return nil, exitError.New("ExecuteTest, not implemented", exitError.NotImplemented)
 }
 
-func ExecuteA(cmd *cli.Command, args []string) error {
-	return exitError.New("ExecuteA, not implemented", exitError.NotImplemented)
+func ExecuteA(cmd *cli.Command, args []string) ([]interface{}, error) {
+	return nil, exitError.New("ExecuteA, not implemented", exitError.NotImplemented)
 }

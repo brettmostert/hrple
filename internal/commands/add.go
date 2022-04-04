@@ -16,7 +16,7 @@ func (e *Executer) initAdd() {
 	e.rootCommand.AddCommand(cmd)
 }
 
-func ExecuteAdd(cmd *cli.Command, args []string) error {
+func ExecuteAdd(cmd *cli.Command, args []string) ([]interface{}, error) {
 	fmt.Printf("ExecuteAdd with these args: %v", args)
-	return nil
+	return nil, nil
 }

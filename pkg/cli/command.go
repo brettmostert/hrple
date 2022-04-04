@@ -14,7 +14,7 @@ type Command struct {
 	ShortDescription string
 	LongDescription  string
 	Example          string
-	Run              func(cmd *Command, args []string) error
+	Run              func(cmd *Command, args []string) ([]interface{}, error)
 	HelpType         Help
 	Args             []string
 
@@ -29,7 +29,7 @@ type Options struct {
 	Args []string
 }
 
-func (cmd *Command) Execute(options ...Options) error {
+func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 	args := os.Args[1:]
 
 	if len(options) > 0 {
@@ -39,6 +39,7 @@ func (cmd *Command) Execute(options ...Options) error {
 	argsLen := len(args)
 
 	var cmdToExecute *Command
+
 	var argsToExecute []string
 
 	switch {
@@ -51,7 +52,7 @@ func (cmd *Command) Execute(options ...Options) error {
 	}
 
 	if cmdToExecute == nil {
-		return exitError.New("Command not found, args: "+strings.Join(args, " "), exitError.NotFound)
+		return nil, exitError.New("Command not found, args: "+strings.Join(args, " "), exitError.NotFound)
 	}
 
 	return cmdToExecute.Run(cmd, argsToExecute)
