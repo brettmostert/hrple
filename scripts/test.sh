@@ -19,7 +19,7 @@ if [[ $status -eq 0 ]]; then
     exit 0
 else
     echo -e "==> ${YELLOW}Result... ${RED}BAD!!!${NC}"
-    echo $OUTPUT
+    echo -e "$OUTPUT"
     echo
     exit 1
 fi

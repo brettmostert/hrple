@@ -9,9 +9,13 @@ func (e *Executer) initTest() {
 	cmd := &cli.Command{
 		Name: "test",
 		Run:  ExecuteTest,
+		Args: []string{"moo"},
 	}
 
-	cmd.AddFlag()
+	cmd.Flags().String("name", "", "help message for name")
+	cmd.Flags().String("lastname", "meow", "help message for lastname")
+	cmd.Flags().Bool("verbose", false, "help message for verbose")
+	cmd.Flags().Bool("party", true, "help message for party")
 
 	subCmd := &cli.Command{
 		Name: "a",
