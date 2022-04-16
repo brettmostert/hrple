@@ -17,7 +17,7 @@ func ExecuteTestCommand(cmd *Command, args []string) ([]interface{}, error) {
 	return returnValue, nil
 }
 
-func SetupCliForTesting() *Command {
+func setupCliForTesting() *Command {
 	rootCommand := &Command{
 		Name: "cli",
 		Run:  ExecuteTestCommand,
@@ -38,19 +38,32 @@ func SetupCliForTesting() *Command {
 
 	rootCommand.AddCommand(subCmdB)
 
-	subCmdC := &Command{
-		Name: "subCmdC",
+	subCmdCWithParams := &Command{
+		Name: "subCmdCWithParams",
 		Args: []string{"arg1", "arg2"},
 		Run:  ExecuteTestCommand,
 	}
 
-	rootCommand.AddCommand(subCmdC)
+	rootCommand.AddCommand(subCmdCWithParams)
+
+	subCmdDWithParamsAndFlags := &Command{
+		Name: "subCmdDWithParamsAndFlags",
+		Args: []string{"arg1"},
+		Run:  ExecuteTestCommand,
+	}
+
+	subCmdDWithParamsAndFlags.Flags().String("name", "", "help message for name")
+	subCmdDWithParamsAndFlags.Flags().String("lastname", "meow", "help message for lastname")
+	subCmdDWithParamsAndFlags.Flags().Bool("verbose", false, "help message for verbose")
+	subCmdDWithParamsAndFlags.Flags().Bool("party", true, "help message for party")
+
+	rootCommand.AddCommand(subCmdDWithParamsAndFlags)
 
 	return rootCommand
 }
 
 func TestFindCommand(t *testing.T) {
-	rootCommand := SetupCliForTesting()
+	rootCommand := setupCliForTesting()
 
 	var tests = []struct {
 		name     string
@@ -61,7 +74,8 @@ func TestFindCommand(t *testing.T) {
 		{"find subCmdB", "subCmdB", "subCmdB"},
 		{"find subCmdB-1", "subCmdB subCmdB-1", "subCmdB-1"},
 		{"find cmd404", "cmd404", ""},
-		{"find subCmdC with parameter value a", "subCmdC arg1", "subCmdC"},
+		{"find subCmdCWithParams with parameter value a", "subCmdCWithParams arg1 arg2", "subCmdCWithParams"},
+		{"find subCmdDWithParamsAndFlags", "subCmdDWithParamsAndFlags arg1", "subCmdDWithParamsAndFlags"},
 	}
 
 	for _, tc := range tests {
@@ -108,7 +122,7 @@ func TestAddCommandParentAndChildCannotHaveSameName(t *testing.T) {
 }
 
 func TestExecuteParent(t *testing.T) {
-	cli := SetupCliForTesting()
+	cli := setupCliForTesting()
 
 	var expected []interface{}
 
@@ -120,7 +134,7 @@ func TestExecuteParent(t *testing.T) {
 }
 
 func TestExecuteSubCommand(t *testing.T) {
-	cli := SetupCliForTesting()
+	cli := setupCliForTesting()
 
 	returnValues, err := cli.Execute(Options{
 		Args: []string{"subCmdA"},
@@ -134,10 +148,10 @@ func TestExecuteSubCommand(t *testing.T) {
 }
 
 func TestExecuteSubCommandWithParam(t *testing.T) {
-	cli := SetupCliForTesting()
+	cli := setupCliForTesting()
 
 	returnValues, err := cli.Execute(Options{
-		Args: []string{"subCmdC", "abc", "xyz"},
+		Args: []string{"subCmdCWithParams", "abc", "xyz"},
 	})
 
 	expected := make([]interface{}, 2)
@@ -157,10 +171,23 @@ func TestExecuteSubCommandWithParam(t *testing.T) {
 
 func TestExecuteCannotFindCommand(t *testing.T) {
 	expected := "Command not found, args: subCmd404"
-	cli := SetupCliForTesting()
+	cli := setupCliForTesting()
 
 	_, err := cli.Execute(Options{
 		Args: []string{"subCmd404"},
+	})
+
+	if err == nil || err.Error() != expected {
+		t.Errorf("got: '%v'; wanted the following error '%v'", err, expected)
+	}
+}
+
+func TestExecuteInvalidParams(t *testing.T) {
+	expected := "Unable to parse flags, args: subCmdDWithParamsAndFlags abc -f"
+	cli := setupCliForTesting()
+
+	_, err := cli.Execute(Options{
+		Args: []string{"subCmdDWithParamsAndFlags", "abc", "-f"},
 	})
 
 	if err == nil || err.Error() != expected {

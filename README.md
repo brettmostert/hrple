@@ -22,8 +22,12 @@
 A not so long list of milestones, just something to work towards.
 
 - [ ] **v1** - To manage "*habits*" via the `cli` and `grpc` (***current milestone***)
-  - [ ] :construction: Implement own light weight `pkg/cli` lib  
+  - [x] :construction: Implement own light weight `pkg/cli` lib
+    - [x] add base commands for cli i.e. `mycli subCommand`
+    - [x] add args for command i.e. `mycli subCommand arg1 arg2`
+    - [x] :construction: add flag for command i.e. `mycli subCommand arg1 arg2 --help -v`
   - [ ] Central `proto` definition repo
+    - [ ] :memo: Duplicate known types or use compiled format as it should be backwards compatible
   - [ ] Implement Server component
     - [ ] auth
       - [ ] auth

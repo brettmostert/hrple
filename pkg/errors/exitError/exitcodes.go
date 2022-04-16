@@ -7,4 +7,5 @@ const (
 	Failure
 	NotImplemented
 	NotFound
+	InvalidFlags
 )
