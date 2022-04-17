@@ -17,6 +17,15 @@
 
 ---
 
+## Todo List for this Branch - REMOVE WHEN DONE
+
+  - [ ] Implement CI
+    - [ ] move each long running 'service' or 'component' into their own folder with docker files
+    - [ ] create a support script in go to build everything
+    - [ ] each service will have a cli which calls itself (uses clients)
+    - [ ] client "sdks" for the service will be in `clients` folder
+
+---
 ## Project Milestones
 
 A not so long list of milestones, just something to work towards.

@@ -8,7 +8,7 @@ getProjectDir
 export GOFLAGS="-mod=readonly"
 
 # In release mode we don't want debug information in the binary
-if [[ -n "${TRPLE_RELEASE}" ]]; then
+if [[ -n "${HRPLE_RELEASE}" ]]; then
     LD_FLAGS="-s -w"
 fi
 
