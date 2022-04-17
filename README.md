@@ -60,7 +60,7 @@ A not so long list of milestones, just something to work towards.
 Below is a list of the technology primarily used in this project.
 
 ### Backend
-
+https://github.com/stellar/go
 - Go (aka golang)
 - GRPC, REST, GQL
 - K8s & Docker
@@ -106,7 +106,7 @@ The tools listed below are required for the build and/or packaging process.
 
 A Big Shout Out! To the people who worked on the following, the work you have done has aided in my learning of the go language and eco-system. 
 
-- project layout inspired by <https://github.com/golang-standards/project-layout>
+- project layout inspired by <https://github.com/golang-standards/project-layout> and <https://github.com/stellar/go>
 - linting from <https://golangci-lint.run>
 - `pkg/cli` inspired by <https://github.com/spf13/cobra>
 - project logo inspired by my horrific graphic design and created with <https://krita.org/en/>
