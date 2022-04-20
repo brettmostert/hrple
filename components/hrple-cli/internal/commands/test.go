@@ -21,7 +21,6 @@ func (e *Executer) initTest() {
 		Name: "a",
 		Run:  ExecuteA,
 	}
-
 	cmd.AddCommand(subCmd)
 	e.rootCommand.AddCommand(cmd)
 }

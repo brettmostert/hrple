@@ -12,7 +12,6 @@ func (e *Executer) initAdd() {
 		Run:  ExecuteAdd,
 		Args: []string{"name"},
 	}
-
 	e.rootCommand.AddCommand(cmd)
 }
 

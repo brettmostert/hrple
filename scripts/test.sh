@@ -9,7 +9,7 @@ if [ ! -d $DIR/tmp ]; then
     mkdir -p $DIR/tmp
 fi
 
-OUTPUT=$(go test ./... -cover -covermode=atomic -coverprofile=./tmp/coverage.out)
+OUTPUT=$(go test ./... -cover -covermode=atomic -coverprofile=${DIR}/tmp/coverage.out)
 status=$?
 
 if [[ $status -eq 0 ]]; then

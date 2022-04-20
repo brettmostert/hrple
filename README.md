@@ -6,7 +6,7 @@
 
 ---
 
-**`hrple`** is an easy to use tool to help you create habits. This is loosely inspired by the book *Atomic Habits* by *James Clear* and techniques or frameworks like *Kanban* and the *Pomodoro Technique*.
+**`hrple`** is an easy to use tool to help you create habits. This is loosely inspired by the book _Atomic Habits_ by _James Clear_ and techniques or frameworks like _Kanban_ and the _Pomodoro Technique_.
 
 ---
 
@@ -19,18 +19,21 @@
 
 ## Todo List for this Branch - REMOVE WHEN DONE
 
-  - [ ] Implement CI
-    - [ ] move each long running 'service' or 'component' into their own folder with docker files
-    - [ ] create a support script in go to build everything
-    - [ ] each service will have a cli which calls itself (uses clients)
-    - [ ] client "sdks" for the service will be in `clients` folder
+hmm how to handle builds in mono repo
+
+- [ ] Implement CI
+  - [ ] move each long running 'service' or 'component' into their own folder with docker files
+  - [ ] create a support script in go to build everything
+  - [ ] each service will have a cli which calls itself (uses clients)
+  - [ ] client "sdks" for the service will be in `clients` folder
 
 ---
+
 ## Project Milestones
 
 A not so long list of milestones, just something to work towards.
 
-- [ ] **v1** - To manage "*habits*" via the `cli` and `grpc` (***current milestone***)
+- [ ] **v1** - To manage "_habits_" via the `cli` and `grpc` (**_current milestone_**)
   - [x] :construction: Implement own light weight `pkg/cli` lib
     - [x] add base commands for cli i.e. `mycli subCommand`
     - [x] add args for command i.e. `mycli subCommand arg1 arg2`
@@ -42,7 +45,7 @@ A not so long list of milestones, just something to work towards.
       - [ ] auth
       - [ ] registration
       - [ ] profile (modify)
-    - [ ] api-gateway      
+    - [ ] api-gateway
     - [ ] Habit Tracker
       - [ ] Add/Modify
       - [ ] History
@@ -60,7 +63,9 @@ A not so long list of milestones, just something to work towards.
 Below is a list of the technology primarily used in this project.
 
 ### Backend
+
 https://github.com/stellar/go
+
 - Go (aka golang)
 - GRPC, REST, GQL
 - K8s & Docker
@@ -97,14 +102,14 @@ Below is a brief description of how to setup this project.
 
 The tools listed below are required for the build and/or packaging process.
 
-| Category | Description | URL |
-|---|---|---|
-| Linter | `golangci` is our linter of choice | https://golangci-lint.run |
-|   |   |   |
+| Category | Description                        | URL                       |
+| -------- | ---------------------------------- | ------------------------- |
+| Linter   | `golangci` is our linter of choice | https://golangci-lint.run |
+|          |                                    |                           |
 
 # Giving Thanks
 
-A Big Shout Out! To the people who worked on the following, the work you have done has aided in my learning of the go language and eco-system. 
+A Big Shout Out! To the people who worked on the following, the work you have done has aided in my learning of the go language and eco-system.
 
 - project layout inspired by <https://github.com/golang-standards/project-layout> and <https://github.com/stellar/go>
 - linting from <https://golangci-lint.run>
@@ -115,11 +120,11 @@ A Big Shout Out! To the people who worked on the following, the work you have do
 
 ## Emoji Legend
 
-| meaning | emoji | text |
-| ------- | ----- | ---- |
-| done | :heavy_check_mark: | `:heavy_check_mark:` |
-| wip | :construction: | `:construction:` |
-| note | :memo: | `:memo:` |
+| meaning | emoji              | text                 |
+| ------- | ------------------ | -------------------- |
+| done    | :heavy_check_mark: | `:heavy_check_mark:` |
+| wip     | :construction:     | `:construction:`     |
+| note    | :memo:             | `:memo:`             |
 
 ## Experiments
 

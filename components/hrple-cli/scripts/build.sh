@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Get the parent directory of where this script is.
-source $(dirname "$0")/common.sh
+source ../../scripts/common.sh
 getProjectDir
 
 # Set module download mode to readonly to not implicitly update go.mod
@@ -26,7 +26,9 @@ go mod download
 
 # Build!
 echo -e "==> ${CYAN}Building...${NC}"
-CGO_ENABLED=0 GOOS=linux go build -o $DIR/bin -ldflags "${LD_FLAGS}" ./...
+
+CGO_ENABLED=0 GOOS=linux go build -o $DIR/bin -ldflags "${LD_FLAGS}" ./cmd/hrple-cli
+
 GOPATH=${GOPATH:-$(go env GOPATH)}
 MAIN_GOPATH=($GOPATH)
 
@@ -43,5 +45,5 @@ done
 # Done!
 echo
 echo -e "==> ${YELLOW}Results:${NC}"
-ls -hl $DIR/bin
+ls -hld $DIR/bin
 echo

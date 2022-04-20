@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-
+COMPONENT="/components/hrple-cli"
 # Get the parent directory of where this script is.
-source $(dirname "$0")/common.sh
+source ../../scripts/common.sh
 getProjectDir
 
+cd ${DIR}
+
 # Build a image with src code and debug
-docker build . --rm --force-rm --target dev -t hrple:latest-dev
+docker build --rm --force-rm --target build -t hrple:latest-dev -f ${DIR}${COMPONENT}/docker/Dockerfile .
 
 # Done!
 echo

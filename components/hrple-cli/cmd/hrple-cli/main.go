@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/brettmostert/hrple/internal/commands"
+	"github.com/brettmostert/hrple/components/hrple-cli/internal/commands"
 	"github.com/brettmostert/hrple/pkg/errors/exitError"
 )
 
