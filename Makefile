@@ -26,6 +26,20 @@ docker-clean-all:
 docker-clean:
 	@sh -c "'$(CURDIR)/scripts/docker-clean.sh'"
 
-.NOTPARALLEL:
+# GIT_SHA1 = $(shell git rev-parse --verify HEAD)
+# IMAGES_TAG = ${shell git describe --exact-match --tags 2> /dev/null || echo 'latest'}
+# IMAGE_PREFIX = my-super-awesome-monorepo-
 
-.PHONY: sca build buildOnly test testOnly clean docker-build docker-release
+IMAGE_DIRS = $(wildcard ./components/*)
+
+# Build all images
+build-all: ${IMAGE_DIRS}
+
+# Build and tag a single image
+${IMAGE_DIRS}:	
+	$(eval COMPONENT_FOLDER = $(@))
+	$(eval COMPONENT_NAME = $(shell basename ${COMPONENT_FOLDER}))
+	@echo $(COMPONENT_NAME)
+
+
+.PHONY: all ${IMAGE_DIRS} sca build buildOnly test testOnly clean docker-build docker-release

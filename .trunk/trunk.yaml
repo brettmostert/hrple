@@ -4,10 +4,10 @@ cli:
 lint:
   enabled:
     - gitleaks@8.3.0
-    - gofmt@1.16.7
     - golangci-lint@1.42.1
     - hadolint@2.8.0
     - markdownlint@0.31.1
     - prettier@2.5.1
     - shellcheck@0.8.0
     - shfmt@3.4.0
+    # - gofmt@1.16.7

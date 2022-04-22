@@ -1,0 +1,8 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "auth",
+    srcs = ["auth.go"],
+    importpath = "github.com/brettmostert/hrple/go/components/hrple-cli/internal/auth",
+    visibility = ["//go/components/hrple-cli:__subpackages__"],
+)

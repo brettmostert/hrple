@@ -1,0 +1,24 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "cli",
+    srcs = [
+        "args.go",
+        "command.go",
+        "flags.go",
+        "help.go",
+    ],
+    importpath = "github.com/brettmostert/hrple/go/pkg/cli",
+    visibility = ["//visibility:public"],
+    deps = ["//go/pkg/errors/exitError"],
+)
+
+go_test(
+    name = "cli_test",
+    srcs = [
+        "command_test.go",
+        "flags_test.go",
+    ],
+    embed = [":cli"],
+    deps = ["//go/pkg/testHelper"],
+)

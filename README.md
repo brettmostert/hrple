@@ -1,3 +1,4 @@
+<!-- trunk-ignore(markdownlint/MD041) -->
 <p align="center">
   <img alt="golangci-lint logo" src="assets/hrple-go-logo.png" height="150" />
   <h3 align="center">hrple</h3>
@@ -113,6 +114,7 @@ A Big Shout Out! To the people who worked on the following, the work you have do
 
 - project layout inspired by <https://github.com/golang-standards/project-layout> and <https://github.com/stellar/go>
 - linting from <https://golangci-lint.run>
+- go install github.com/bazelbuild/bazelisk@latest
 - `pkg/cli` inspired by <https://github.com/spf13/cobra>
 - project logo inspired by my horrific graphic design and created with <https://krita.org/en/>
 

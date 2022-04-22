@@ -1,0 +1,21 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:exclude vendor
+# gazelle:exclude build
+# gazelle:prefix github.com/brettmostert/hrple
+gazelle(name = "gazelle")
+
+gazelle(
+    name = "gazelle-all",
+    args = [
+        "-from_file=./go/go.mod",
+        "-to_macro=deps.bzl%go_dependencies",
+        "-prune",
+    ],
+    command = "update-repos",
+)
+
+alias(
+    name = "hrple-cli",
+    actual = "//go/components/hrple-cli/cmd/hrple-cli:hrple-cli",
+)
