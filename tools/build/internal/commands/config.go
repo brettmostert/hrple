@@ -2,7 +2,7 @@ package commands
 
 import (
 	"github.com/brettmostert/hrple/go/pkg/cli"
-	config "github.com/brettmostert/hrple/go/tools/build/internal/builder"
+	config "github.com/brettmostert/hrple/tools/build/internal/builder"
 )
 
 func (e *Executer) initConfig() {

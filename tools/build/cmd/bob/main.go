@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/brettmostert/hrple/go/pkg/errors/exitError"
-	"github.com/brettmostert/hrple/go/tools/build/internal/commands"
+	"github.com/brettmostert/hrple/tools/build/internal/commands"
 )
 
 func main() {

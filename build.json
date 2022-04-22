@@ -9,6 +9,13 @@
             "type": "cli",
             "path": "./components/hrple-cli/cmd/hrple-cli",
             "root": "go"
+        },
+        {        
+            "name": "builder",
+            "lang": "go",
+            "type": "cli",
+            "path": "./cmd/bob",
+            "root": "tools/build"
         }
     ]    
 }

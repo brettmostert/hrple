@@ -9,13 +9,8 @@ if [[ -d ${DIR}/bin ]]; then
 	rm -rf ./tmp
 fi
 
-echo -e "==> Clean Up"
-if [[ -d ${DIR}/tools/build ]]; then
-	rm -rf ./tools/build
-fi
-
 echo -e "==> Building & Installing 'bob' the builder"
-cd "${DIR}/go/tools/build" || exit
+cd "${DIR}/tools/build" || exit
 go install ./cmd/bob
 cd "${DIR}" || exit
 
