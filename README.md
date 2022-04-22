@@ -17,28 +17,22 @@
 - To **learn**! While I could use some really awesome go modules/libraries provided by the community, I have chosen to implement my own light weight versions by using as much of the `std lib` as possible. See the [Giving Thanks](#giving-thanks) and [Experiments](#experiments) sections.
 
 ---
-
-## Todo List for this Branch - REMOVE WHEN DONE
-
-hmm how to handle builds in mono repo
-
-- [ ] Implement CI
-  - [ ] move each long running 'service' or 'component' into their own folder with docker files
-  - [ ] create a support script in go to build everything
-  - [ ] each service will have a cli which calls itself (uses clients)
-  - [ ] client "sdks" for the service will be in `clients` folder
-
----
-
 ## Project Milestones
 
 A not so long list of milestones, just something to work towards.
 
 - [ ] **v1** - To manage "_habits_" via the `cli` and `grpc` (**_current milestone_**)
-  - [x] :construction: Implement own light weight `pkg/cli` lib
+  - [x] :construction: Implement light weight `pkg/cli` lib
     - [x] add base commands for cli i.e. `mycli subCommand`
     - [x] add args for command i.e. `mycli subCommand arg1 arg2`
     - [x] :construction: add flag for command i.e. `mycli subCommand arg1 arg2 --help -v`
+  - [ ] :construction: Implement light weight `tools/build` lib for building multiple projects in the mono repo
+    - [ ] Build All
+    - [ ] Go Support
+      - [x] Test
+      - [x] Build
+      - [ ] Run
+      - [ ] Run & Watch
   - [ ] Central `proto` definition repo
     - [ ] :memo: Duplicate known types or use compiled format as it should be backwards compatible
   - [ ] Implement Server component
