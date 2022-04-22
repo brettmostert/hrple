@@ -19,3 +19,4 @@ vendor
 bin
 dist
 .cache
+~/.cache
