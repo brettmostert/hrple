@@ -47,7 +47,6 @@ func (builder *Builder) Build(name string) error {
 	
 	args := []string{"build","-o", strings.Join(output,""), project.Path }
 	
-	// trunk-ignore(golangci-lint/gosec)
 	cmd := exec.Command("go", args...)
 	cmd.Dir = project.Root
 
@@ -84,7 +83,6 @@ func (builder *Builder) Test(name string) error {
 	
 	args := []string{"test", "./...", "-cover", "-covermode=atomic"}
 	
-	// trunk-ignore(golangci-lint/gosec)
 	cmd := exec.Command("go", args...)
 	cmd.Dir = project.Root
 
