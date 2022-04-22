@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/brettmostert/hrple/pkg/testHelper"
+	"github.com/brettmostert/hrple/go/pkg/testHelper"
 )
 
 func ExecuteTestCommand(cmd *Command, args []string) ([]interface{}, error) {

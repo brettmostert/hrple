@@ -3,7 +3,7 @@ package commands
 import (
 	"fmt"
 
-	"github.com/brettmostert/hrple/pkg/cli"
+	"github.com/brettmostert/hrple/go/pkg/cli"
 )
 
 func (e *Executer) initAdd() {
@@ -12,7 +12,6 @@ func (e *Executer) initAdd() {
 		Run:  ExecuteAdd,
 		Args: []string{"name"},
 	}
-
 	e.rootCommand.AddCommand(cmd)
 }
 

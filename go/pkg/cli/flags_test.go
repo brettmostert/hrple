@@ -3,7 +3,7 @@ package cli
 import (
 	"testing"
 
-	"github.com/brettmostert/hrple/pkg/testHelper"
+	"github.com/brettmostert/hrple/go/pkg/testHelper"
 )
 
 func TestStripFlags(t *testing.T) {

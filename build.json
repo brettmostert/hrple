@@ -1,0 +1,14 @@
+{
+    "config": {
+        "output": "dist"
+    },
+    "projects": [
+        {        
+            "name": "hrple-cli",
+            "lang": "go",
+            "type": "cli",
+            "path": "./components/hrple-cli/cmd/hrple-cli",
+            "root": "go"
+        }
+    ]    
+}

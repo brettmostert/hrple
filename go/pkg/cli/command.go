@@ -1,11 +1,10 @@
 package cli
 
 import (
-	"fmt"
 	"os"
 	"strings"
 
-	"github.com/brettmostert/hrple/pkg/errors/exitError"
+	"github.com/brettmostert/hrple/go/pkg/errors/exitError"
 )
 
 type Command struct {
@@ -59,7 +58,7 @@ func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 		return nil, exitError.New("Unable to parse flags, args: "+strings.Join(args, " "), exitError.InvalidFlags)
 	}
 
-	return cmdToExecute.Run(cmd, argsToExecute)
+	return cmdToExecute.Run(cmdToExecute, argsToExecute)
 }
 
 func (cmd *Command) findNext(args []string) *Command {
@@ -99,8 +98,6 @@ func (rootCmd *Command) findCommand(args []string) *Command {
 		command = innerfind(parentCmd, argsWithoutFlags)
 
 		if command == nil {
-			fmt.Printf("Logging, Command is Nil, Parent Command %v\n", parentCmd.Name)
-
 			if len(parentCmd.Args) > 0 {
 				command = parentCmd
 			}

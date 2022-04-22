@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/brettmostert/hrple/internal/commands"
-	"github.com/brettmostert/hrple/pkg/errors/exitError"
+	"github.com/brettmostert/hrple/go/pkg/errors/exitError"
+	"github.com/brettmostert/hrple/go/tools/build/internal/commands"
 )
 
 func main() {

@@ -1,8 +1,9 @@
 package commands
 
 import (
-	"github.com/brettmostert/hrple/pkg/cli"
-	"github.com/brettmostert/hrple/pkg/errors/exitError"
+	"fmt"
+
+	"github.com/brettmostert/hrple/go/pkg/cli"
 )
 
 func (e *Executer) initTest() {
@@ -27,9 +28,16 @@ func (e *Executer) initTest() {
 }
 
 func ExecuteTest(cmd *cli.Command, args []string) ([]interface{}, error) {
-	return nil, exitError.New("ExecuteTest, not implemented", exitError.NotImplemented)
+	verboseFlagValue, err := cmd.Flags().GetBool("verbose")
+	fmt.Printf("ExecuteTest %v %v %v \n", verboseFlagValue, err, cmd.Flags().GetString("name"))
+
+	return nil, nil
 }
 
 func ExecuteA(cmd *cli.Command, args []string) ([]interface{}, error) {
-	return nil, exitError.New("ExecuteA, not implemented", exitError.NotImplemented)
+	// return nil, exitError.New("ExecuteA, not implemented", exitError.NotImplemented)
+	fmt.Printf("ExecuteA %v", args)
+	fmt.Printf("ExecuteA %v", cmd.Flags().GetString("name"))
+
+	return nil, nil
 }
