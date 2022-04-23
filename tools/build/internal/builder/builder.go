@@ -102,7 +102,7 @@ func (project *Project) findRelease(name string) *Release {
 
 func (project *Project) findDefault(name string) *Release {
 	for _, rel := range project.Releases {
-		if rel.Default == true {
+		if rel.Default {
 			return &rel
 		}
 	}
