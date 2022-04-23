@@ -22,7 +22,7 @@ type Project struct {
 	Type     string    `json:"type"`
 	Path     string    `json:"path"`
 	Root     string    `json:"root"`
-	Releases []Release `json:releases`
+	Releases []Release `json:"releases"`
 }
 
 type Release struct {
