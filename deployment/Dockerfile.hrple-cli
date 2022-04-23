@@ -1,11 +1,9 @@
-ARG RELEASE_IMAGE=alpine
 ARG RELEASE
 ARG APP="hrple"
 ARG COMPONENT="hrple-cli"
-ARG COMPONENT_PATH="./components/hrple-cli"
 ARG MAINTAINER="Brett Mostert <brettmostert@gmail.com>"
 
-FROM golang:1-alpine as build
+FROM golang:alpine as build
 
 LABEL app=${APP} \
       component=${COMPONENT} \
@@ -14,29 +12,34 @@ LABEL app=${APP} \
 
 ENV HRPLE_DEV=true
 ENV HRPLE_RELEASE=$RELEASE
-ENV CGO_ENABLED 0
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
-RUN "apk add --no-cache git bash make curl && curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin"
+RUN apk update && apk upgrade && \
+    apk add --no-cache git curl bash
 
-WORKDIR /go/src/app
+WORKDIR /hrple/build
 
-# COPY ./scripts ./scripts
-# COPY ./components/hrple-cli ./components/hrple-cli
-COPY . .
+# This should be added to a standardised dependencies docker image
+COPY ./scripts ./scripts
+COPY ./tools ./tools
+COPY go.work build.json ./
+COPY ./go ./go
 
-RUN make build
+RUN ./scripts/bootstrap.sh
+RUN bob build hrple-cli
 
 ENTRYPOINT ["bash"]
 
 # trunk-ignore(hadolint/DL3006)
-FROM ${RELEASE_IMAGE} as release
+FROM alpine as release
 
 LABEL app=${APP} \
       component=${COMPONENT} \
       stage=release \    
       maintainer="Brett Mostert <brettmostert@gmail.com>"
+COPY --from=build /hrple/build/dist/hrple-cli /hrple
+RUN ln ./hrple/hrple-cli /usr/bin
 
-COPY --from=build /go/src/app/bin/${COMPONENT} /hrple/${COMPONENT}
+WORKDIR /hrple
 ENTRYPOINT ["/bin/ash"]

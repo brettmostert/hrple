@@ -11,13 +11,13 @@ func TestFindProject(t *testing.T) {
 
 	project := builder.findProject("hrple-cli")
 
-	if (project == nil) {
-		t.Errorf("Expected to find project, got: nil")	
+	if project == nil {
+		t.Errorf("Expected to find project, got: nil")
 		return
 	}
 
 	if !strings.EqualFold(project.Language, "gO") {
-		t.Errorf("Expected language to be GO")	
+		t.Errorf("Expected language to be GO")
 	}
 }
 
@@ -27,8 +27,8 @@ func TestFindProjectDoesNotExist(t *testing.T) {
 
 	project := builder.findProject("404")
 
-	if (project != nil) {
-		t.Errorf("Expected NOT to find project")	
+	if project != nil {
+		t.Errorf("Expected NOT to find project")
 	}
 }
 
@@ -38,8 +38,8 @@ func TestTest(t *testing.T) {
 
 	err := builder.Test("hrple-cli")
 
-	if (err != nil) {
-		t.Errorf("Expected no errors, got: %v", err)	
+	if err != nil {
+		t.Errorf("Expected no errors, got: %v", err)
 	}
 }
 
@@ -49,13 +49,7 @@ func TestTestNotFound(t *testing.T) {
 
 	err := builder.Test("404")
 
-	if (err.Error() != "Project not found, name: 404") {
-		t.Errorf("Expected no errors, got: %v", err)	
+	if err.Error() != "Project not found, name: 404" {
+		t.Errorf("Expected no errors, got: %v", err)
 	}
 }
-
-
-func TestBuild(t *testing.T) {
-	t.Errorf("Not Implemented")
-}
-

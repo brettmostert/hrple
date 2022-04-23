@@ -1,14 +1,21 @@
 {
-    "config": {
-        "output": "dist"
-    },
-    "projects": [
-        {        
-            "name": "hrple-cli",
-            "lang": "go",
-            "type": "cli",
-            "path": "go/components/hrple-cli/cmd/hrple-cli/main.go",
-            "root": "go"
+  "config": {
+    "output": "dist"
+  },
+  "projects": [
+    {
+      "name": "hrple-cli",
+      "lang": "go",
+      "type": "cli",
+      "path": "go/components/hrple-cli/cmd/hrple-cli/main.go",
+      "root": "go",
+      "releases": [
+        {
+          "name": "local",
+          "flags": ["LD_FLAGS=\"-s -w\""],
+          "default": true
         }
-    ]    
+      ]
+    }
+  ]
 }

@@ -1,6 +1,8 @@
 .git
 tmp/
 vendor/
+dist
+deployment
 
 # Exclude "build-time" ignore files.
 .dockerignore

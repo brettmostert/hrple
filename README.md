@@ -33,6 +33,7 @@ A not so long list of milestones, just something to work towards.
       - [x] Build
       - [ ] Run
       - [ ] Run & Watch
+    - [ ] Docker?
   - [ ] Central `proto` definition repo
     - [ ] :memo: Duplicate known types or use compiled format as it should be backwards compatible
   - [ ] Implement Server component

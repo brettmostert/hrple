@@ -8,7 +8,7 @@ import (
 )
 
 type BuildConfig struct {
-	Config Config `json:"config"`
+	Config   Config    `json:"config"`
 	Projects []Project `json:"projects"`
 }
 
@@ -17,11 +17,18 @@ type Config struct {
 }
 
 type Project struct {
-	Name string `json:"name"`
-	Language string `json:"lang"`
-	Type string `json:"type"`
-	Path string `json:"path"`
-	Root string `json:"root"`
+	Name     string    `json:"name"`
+	Language string    `json:"lang"`
+	Type     string    `json:"type"`
+	Path     string    `json:"path"`
+	Root     string    `json:"root"`
+	Releases []Release `json:releases`
+}
+
+type Release struct {
+	Name    string   `json:"name"`
+	Flags   []string `json:"flags"`
+	Default bool     `json:"default"`
 }
 
 func readFile(jsonFilePath string) ([]byte, error) {
@@ -37,12 +44,12 @@ func readFile(jsonFilePath string) ([]byte, error) {
 
 func parseConfig(configJson []byte) (*BuildConfig, error) {
 	var buildConfig BuildConfig
-	
+
 	err := json.Unmarshal(configJson, &buildConfig)
-	if (err != nil) {
+	if err != nil {
 		return nil, err
 	}
-	
+
 	return &buildConfig, nil
 }
 
@@ -52,9 +59,9 @@ func Print(jsonFilePath string) {
 	buildConfig, _ := parseConfig(bytes)
 
 	b, err := json.MarshalIndent(buildConfig, "", "  ")
-    if err != nil {
-        fmt.Println(err)
-    }
+	if err != nil {
+		fmt.Println(err)
+	}
 
-    fmt.Print(string(b))
+	fmt.Print(string(b))
 }

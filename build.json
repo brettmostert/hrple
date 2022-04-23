@@ -1,21 +1,50 @@
 {
-    "config": {
-        "output": "dist"
-    },
-    "projects": [
-        {        
-            "name": "hrple-cli",
-            "lang": "go",
-            "type": "cli",
-            "path": "./components/hrple-cli/cmd/hrple-cli",
-            "root": "go"
-        },
-        {        
-            "name": "builder",
-            "lang": "go",
-            "type": "cli",
-            "path": "./cmd/bob",
-            "root": "tools/build"
+  "config": {
+    "output": "dist"
+  },
+  "projects": [
+    {
+      "name": "hrple-cli",
+      "lang": "go",
+      "type": "cli",
+      "path": "./components/hrple-cli/cmd/hrple-cli",
+      "root": "go",
+      "releases": [{
+        "name": "local",
+        "flags": [],
+        "docker": {
+          "file": "./deployment/Dockerfile.hrple-cli",
+          "tags": ["hrple:latest-dev"],
+          "frm": true,
+          "target": "build"
         }
-    ]    
+      },
+      {
+        "name": "prod",
+        "flags": ["LD_FLAGS=\"-s -w\""],
+        "docker": {
+          "file": "./deployment/Dockerfile.hrple-cli",
+          "tags": ["hrple:latest"],
+          "frm": true,
+          "target": "release",
+          "build-args": ["RELEASE=1"]
+        }
+      }]
+    },
+    {
+      "name": "builder",
+      "lang": "go",
+      "type": "cli",
+      "path": "./cmd/bob",
+      "root": "tools/build",
+      "releases": [{
+        "name": "local",
+        "default": true
+      },
+      {
+        "name": "prod",
+        "flags": ["-ldflags=-s -w"]        
+      }]
+    }
+  ]
 }
