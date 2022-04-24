@@ -9,7 +9,7 @@ func TestFindProject(t *testing.T) {
 	filePath := "../../testing/build.json"
 	builder := NewBuilder(filePath)
 
-	project := builder.findProject("hrple-cli")
+	project, _ := builder.findProject("hrple-cli")
 
 	if project == nil {
 		t.Errorf("Expected to find project, got: nil")
@@ -25,7 +25,7 @@ func TestFindProjectDoesNotExist(t *testing.T) {
 	filePath := "../../testing/build.json"
 	builder := NewBuilder(filePath)
 
-	project := builder.findProject("404")
+	project, _ := builder.findProject("404")
 
 	if project != nil {
 		t.Errorf("Expected NOT to find project")

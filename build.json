@@ -58,20 +58,6 @@
 					"default": true
 				}
 			]
-		},
-		{
-			"name": "moo",
-			"lang": "go",
-			"type": "component",
-			"path": "./components/moo/cmd/moo",
-			"root": "go",
-			"releases": [
-				{
-					"name": "default",
-					"flags": [],
-					"default": true
-				}
-			]
 		}
 	]
 }

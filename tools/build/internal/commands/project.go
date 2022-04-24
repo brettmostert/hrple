@@ -13,7 +13,7 @@ func (e *Executer) initProject() {
 		Run:  ExecuteProject,
 	}
 
-	cmdAdd := &cli.Command{
+	cmdAdd := cli.Command{
 		Name: "add",
 		Run:  ExecuteAddProject,
 		Args: []string{"project"},
@@ -25,13 +25,28 @@ func (e *Executer) initProject() {
 	cmdAdd.Flags().String("root", "", "") // default is language name
 	cmdAdd.Flags().String("path", "", "") // default {lang}/components/{project}/cmd/{name} for go
 
-	cmd.AddCommand(cmdAdd)
+	cmd.AddCommand(&cmdAdd)
+
+	cmdRemove := cli.Command{
+		Name: "remove",
+		Run:  ExecuteRemoveProject,
+		Args: []string{"project"},
+	}
+	cmdRemove.Flags().String("f", "build.json", "")
+	cmdRm := cli.Command{
+		Name: "rm",
+		Run:  ExecuteRemoveProject,
+		Args: []string{"project"},
+	}
+	cmdRm.Flags().String("f", "build.json", "")
+	cmd.AddCommand(&cmdRemove)
+	cmd.AddCommand(&cmdRm)
 
 	e.rootCommand.AddCommand(cmd)
 }
 
 func ExecuteProject(cmd *cli.Command, args []string) ([]interface{}, error) {
-	fmt.Println("project")
+	fmt.Println("project222")
 
 	return nil, nil
 }
@@ -48,7 +63,14 @@ func ExecuteAddProject(cmd *cli.Command, args []string) ([]interface{}, error) {
 	}
 
 	err := builder.AddProject(project)
-	// err := builder.Build(args[0], cmd.Flags().GetString("release"))
+
+	return nil, err
+}
+
+func ExecuteRemoveProject(cmd *cli.Command, args []string) ([]interface{}, error) {
+	builder := config.NewBuilder(cmd.Flags().GetString("f"))
+
+	err := builder.RemoveProject(args[2])
 
 	return nil, err
 }

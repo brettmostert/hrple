@@ -42,9 +42,9 @@ func (builder *Builder) UpdateConfigFile(data []byte) error {
 }
 
 func (builder *Builder) AddProject(project *Project) error {
-	existingProject := builder.findProject(project.Name)
+	existingProject, _ := builder.findProject(project.Name)
 	if existingProject != nil {
-		return exitError.New("Project already exists, name: ", exitError.Failure)
+		return exitError.New("Project already exists ", exitError.Failure)
 	}
 
 	if project.Root == "" {
@@ -74,11 +74,27 @@ func (builder *Builder) AddProject(project *Project) error {
 
 	data, _ := json.MarshalIndent(builder.buildConfig, "", "\t")
 	return builder.UpdateConfigFile(data)
+}
 
+func (builder *Builder) RemoveProject(projectName string) error {
+	existingProject, index := builder.findProject(projectName)
+	if existingProject == nil {
+		return exitError.New("Unable to find Project, name: "+projectName, exitError.NotFound)
+	}
+
+	builder.buildConfig.Projects = append(builder.buildConfig.Projects[:index], builder.buildConfig.Projects[index+1:]...)
+
+	err := os.RemoveAll("./" + existingProject.Language + "/components/" + existingProject.Name)
+	if err != nil {
+		return err
+	}
+
+	data, _ := json.MarshalIndent(builder.buildConfig, "", "\t")
+	return builder.UpdateConfigFile(data)
 }
 
 func (builder *Builder) Build(name string, releaseName string) error {
-	project := builder.findProject(name)
+	project, _ := builder.findProject(name)
 	if project == nil {
 		return exitError.New("Project not found, name: "+name, exitError.NotFound)
 	}
@@ -125,14 +141,14 @@ func (builder *Builder) Build(name string, releaseName string) error {
 	return nil
 }
 
-func (builder *Builder) findProject(name string) *Project {
-	for _, project := range builder.buildConfig.Projects {
+func (builder *Builder) findProject(name string) (*Project, int) {
+	for index, project := range builder.buildConfig.Projects {
 		if strings.EqualFold(project.Name, name) {
-			return &project
+			return &project, index
 		}
 	}
 
-	return nil
+	return nil, -1
 }
 
 func (project *Project) findRelease(name string) *Release {
@@ -156,7 +172,7 @@ func (project *Project) findDefault(name string) *Release {
 }
 
 func (builder *Builder) Test(name string) error {
-	project := builder.findProject(name)
+	project, _ := builder.findProject(name)
 	if project == nil {
 		return exitError.New("Project not found, name: "+name, exitError.NotFound)
 	}
