@@ -1,50 +1,77 @@
 {
-  "config": {
-    "output": "dist"
-  },
-  "projects": [
-    {
-      "name": "hrple-cli",
-      "lang": "go",
-      "type": "cli",
-      "path": "./components/hrple-cli/cmd/hrple-cli",
-      "root": "go",
-      "releases": [{
-        "name": "local",
-        "flags": [],
-        "docker": {
-          "file": "./deployment/Dockerfile.hrple-cli",
-          "tags": ["hrple:latest-dev"],
-          "frm": true,
-          "target": "build"
-        }
-      },
-      {
-        "name": "prod",
-        "flags": ["LD_FLAGS=\"-s -w\""],
-        "docker": {
-          "file": "./deployment/Dockerfile.hrple-cli",
-          "tags": ["hrple:latest"],
-          "frm": true,
-          "target": "release",
-          "build-args": ["RELEASE=1"]
-        }
-      }]
-    },
-    {
-      "name": "builder",
-      "lang": "go",
-      "type": "cli",
-      "path": "./cmd/bob",
-      "root": "tools/build",
-      "releases": [{
-        "name": "local",
-        "default": true
-      },
-      {
-        "name": "prod",
-        "flags": ["-ldflags=-s -w"]        
-      }]
-    }
-  ]
+	"config": {
+		"output": "dist"
+	},
+	"projects": [
+		{
+			"name": "hrple-cli",
+			"lang": "go",
+			"type": "cli",
+			"path": "./components/hrple-cli/cmd/hrple-cli",
+			"root": "go",
+			"releases": [
+				{
+					"name": "local",
+					"flags": [],
+					"default": false
+				},
+				{
+					"name": "prod",
+					"flags": [
+						"LD_FLAGS=\"-s -w\""
+					],
+					"default": false
+				}
+			]
+		},
+		{
+			"name": "builder",
+			"lang": "go",
+			"type": "cli",
+			"path": "./cmd/bob",
+			"root": "tools/build",
+			"releases": [
+				{
+					"name": "local",
+					"flags": null,
+					"default": true
+				},
+				{
+					"name": "prod",
+					"flags": [
+						"-ldflags=-s -w"
+					],
+					"default": false
+				}
+			]
+		},
+		{
+			"name": "trx",
+			"lang": "go",
+			"type": "component",
+			"path": "./components/trx/cmd/trx",
+			"root": "go",
+			"releases": [
+				{
+					"name": "local",
+					"flags": [],
+					"default": true
+				}
+			]
+		},
+		{
+			"name": "moo",
+			"lang": "go",
+			"type": "component",
+			"path": "./components/moo/cmd/moo",
+			"root": "go",
+			"releases": [
+				{
+					"name": "default",
+					"flags": [],
+					"default": true
+				}
+			]
+		}
+	]
 }

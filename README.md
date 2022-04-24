@@ -27,13 +27,14 @@ A not so long list of milestones, just something to work towards.
     - [x] add args for command i.e. `mycli subCommand arg1 arg2`
     - [x] :construction: add flag for command i.e. `mycli subCommand arg1 arg2 --help -v`
   - [ ] :construction: Implement light weight `tools/build` lib for building multiple projects in the mono repo
+    - [ ] Support for Adding Projects
     - [ ] Build All
     - [ ] Go Support
       - [x] Test
       - [x] Build
       - [ ] Run
       - [ ] Run & Watch
-    - [ ] Docker?
+    - [ ] Docker
   - [ ] Central `proto` definition repo
     - [ ] :memo: Duplicate known types or use compiled format as it should be backwards compatible
   - [ ] Implement Server component
@@ -51,6 +52,22 @@ A not so long list of milestones, just something to work towards.
 - [ ] **v1.2** - IOS App
 - [ ] **v1.3** - Windows App
 - [ ] **v1.4** - Desktop App
+
+---
+## Components
+
+| Name          | Description          |    Language    |    Type     |
+| ------------- | -------------------- | :------------: | :---------: |
+| **hrple-cli** | CLI for everything   |       Go       |     cli     |
+| **habit**     | Management of Habits |       Go       |   service   |
+| **hrple-app** | Hrple App for Users  | Flutter / Dart | ui / mobile |
+| **auth**      | IAM                  |       Go       |   service   |
+
+## Tools
+
+| Name    | Description                                              | Language | Type  |
+| ------- | -------------------------------------------------------- | :------: | :---: |
+| **bob** | Bob the Builder, a light weight mono-repo managment tool |    Go    |  cli  |
 
 ---
 

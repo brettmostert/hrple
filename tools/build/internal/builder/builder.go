@@ -2,7 +2,10 @@ package builder
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/fs"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
@@ -12,6 +15,7 @@ import (
 
 type Builder struct {
 	buildConfig *BuildConfig
+	filePath    string
 }
 
 func NewBuilder(filePath string) *Builder {
@@ -27,9 +31,50 @@ func NewBuilder(filePath string) *Builder {
 
 	builder := &Builder{
 		buildConfig: buildConfig,
+		filePath:    filePath,
 	}
 
 	return builder
+}
+
+func (builder *Builder) UpdateConfigFile(data []byte) error {
+	return ioutil.WriteFile(builder.filePath, data, fs.ModeAppend)
+}
+
+func (builder *Builder) AddProject(project *Project) error {
+	existingProject := builder.findProject(project.Name)
+	if existingProject != nil {
+		return exitError.New("Project already exists, name: ", exitError.Failure)
+	}
+
+	if project.Root == "" {
+		project.Root = project.Language
+	}
+
+	if project.Path == "" {
+		project.Path = "./components/" + project.Name
+		if project.Language == "go" {
+			project.Path = project.Path + "/cmd/" + project.Name
+		}
+	}
+
+	project.Releases = append(project.Releases, Release{
+		Name:    "default",
+		Default: true,
+		Flags:   []string{},
+	})
+
+	builder.buildConfig.Projects = append(builder.buildConfig.Projects, *project)
+
+	// TODO: Move this to create for other languages & to create other folders and potentially "main" file i.e main.go
+	err := os.MkdirAll("./"+project.Language+"/"+project.Path[1:], 0700)
+	if err != nil {
+		return err
+	}
+
+	data, _ := json.MarshalIndent(builder.buildConfig, "", "\t")
+	return builder.UpdateConfigFile(data)
+
 }
 
 func (builder *Builder) Build(name string, releaseName string) error {

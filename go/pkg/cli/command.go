@@ -46,7 +46,7 @@ func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 		argsToExecute = args
 	case argsLen > 0:
 		cmdToExecute = cmd.findCommand(args)
-		argsToExecute = args[1:]
+		argsToExecute = args
 	}
 
 	if cmdToExecute == nil {
@@ -63,20 +63,17 @@ func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 
 func (cmd *Command) findNext(args []string) *Command {
 	var nextCommand *Command
-
 	for _, cmd := range cmd.commands {
 		if cmd.Name == args[0] {
 			nextCommand = cmd
 			break
 		}
 	}
-
 	return nextCommand
 }
 
 func (rootCmd *Command) findCommand(args []string) *Command {
 	var command *Command
-
 	var innerfind func(*Command, []string) *Command
 
 	innerfind = func(innerCommand *Command, innerArgs []string) *Command {
@@ -85,6 +82,10 @@ func (rootCmd *Command) findCommand(args []string) *Command {
 		}
 
 		command = innerCommand.findNext(innerArgs)
+		if command == nil {
+			return innerCommand
+		}
+
 		if command != nil {
 			command = innerfind(command, innerArgs[1:])
 		}
@@ -96,7 +97,6 @@ func (rootCmd *Command) findCommand(args []string) *Command {
 	if parentCmd != nil {
 		argsWithoutFlags := stripFlags(args[1:])
 		command = innerfind(parentCmd, argsWithoutFlags)
-
 		if command == nil {
 			if len(parentCmd.Args) > 0 {
 				command = parentCmd

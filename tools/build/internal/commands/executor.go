@@ -22,10 +22,11 @@ func NewExecuter() *Executer {
 	e := &Executer{
 		rootCommand: rootCommand,
 	}
-	
+
 	e.initConfig()
 	e.initBuild()
 	e.initTest()
+	e.initProject()
 
 	return e
 }
