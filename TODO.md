@@ -18,9 +18,9 @@ hrple - Creating habitual behaviours
 
 ### In Progress
 
-- [ ] bob - remove project cli cmd  
 
 ### Done ✓
 
 - [x] bob - add project for go cli cmd - should create config and folder structure  
+- [x] bob - remove project cli cmd  
 
