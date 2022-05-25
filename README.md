@@ -27,11 +27,17 @@ A not so long list of milestones, just something to work towards.
     - [x] add args for command i.e. `mycli subCommand arg1 arg2`
     - [x] :construction: add flag for command i.e. `mycli subCommand arg1 arg2 --help -v`
   - [ ] :construction: Implement light weight `tools/build` lib for building multiple projects in the mono repo
-    - [ ] Support for Adding Projects
+    - [x] Support for Adding Projects
+    - [ ] Run `tern`
     - [ ] Build All
     - [ ] Go Support
       - [x] Test
       - [x] Build
+      - [ ] Run
+      - [ ] Run & Watch
+    - [ ] Rust Support
+      - [ ] Test
+      - [ ] Build
       - [ ] Run
       - [ ] Run & Watch
     - [ ] Docker
@@ -129,6 +135,8 @@ A Big Shout Out! To the people who worked on the following, the work you have do
 - go install github.com/bazelbuild/bazelisk@latest
 - `pkg/cli` inspired by <https://github.com/spf13/cobra>
 - project logo inspired by my horrific graphic design and created with <https://krita.org/en/>
+- scany <https://github.com/georgysavva/scany>
+- pgx <https://github.com/jackc/pgx>
 
 # Other
 

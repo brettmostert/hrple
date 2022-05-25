@@ -7,30 +7,29 @@ import (
 	"os"
 
 	"github.com/georgysavva/scany/pgxscan"
-	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/brettmostert/hrple/go/components/habit/internal/data"
 )
 
 func main() {
-	// server - http
+	// todo - server - http
 	connString := os.Getenv("DATABASE_URL") + "/habit"
 
-	conn, err := pgx.Connect(context.Background(), connString)
+	conn, err := pgxpool.Connect(context.Background(), connString)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
 
-	defer conn.Close(context.Background())
-	// var name string
-	// rows, err := conn.Query(context.Background(), "select name from activity")
+	// this needs to be at the http server level on shutdown
+	defer conn.Close()
+
 	var activities []*data.Activity
 
-	pgxscan.Select(context.Background(), conn, &activities, `SELECT id, name, type, is_archived, is_deleted, created_time, modified_time FROM activity`)
-	// err = conn.QueryRow(context.Background(), "select name from activity").Scan(&name)
+	err = pgxscan.Select(context.Background(), conn, &activities, `SELECT id, name, type, is_archived, is_deleted, created_time, modified_time FROM activity`)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Select failed: %v\n", err)
 		os.Exit(1)
 	}
 
