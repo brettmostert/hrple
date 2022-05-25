@@ -58,6 +58,20 @@
 					"default": true
 				}
 			]
+		},
+		{
+			"name": "habit",
+			"lang": "go",
+			"type": "component",
+			"path": "./components/habit/cmd/habit",
+			"root": "go",
+			"releases": [
+				{
+					"name": "default",
+					"flags": [],
+					"default": true
+				}
+			]
 		}
 	]
 }
