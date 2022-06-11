@@ -22,17 +22,17 @@
 A not so long list of milestones, just something to work towards.
 
 - [ ] **v1** - To manage "_habits_" via the `cli` and `grpc` (**_current milestone_**)
-  - [x] :construction: Implement light weight `pkg/cli` lib
-    - [x] add base commands for cli i.e. `mycli subCommand`
-    - [x] add args for command i.e. `mycli subCommand arg1 arg2`
-    - [x] :construction: add flag for command i.e. `mycli subCommand arg1 arg2 --help -v`
+  - [x] :heavy_check_mark: Implement light weight `pkg/cli` lib
+    - [x] :heavy_check_mark: add base commands for cli i.e. `mycli subCommand`
+    - [x] :heavy_check_mark: add args for command i.e. `mycli subCommand arg1 arg2`
+    - [x] :heavy_check_mark: add flag for command i.e. `mycli subCommand arg1 arg2 --help -v`
   - [ ] :construction: Implement light weight `tools/build` lib for building multiple projects in the mono repo
-    - [x] Support for Adding Projects
+    - [x] :heavy_check_mark: Support for Adding Projects
     - [ ] Run `tern`
     - [ ] Build All
     - [ ] Go Support
-      - [x] Test
-      - [x] Build
+      - [x] :heavy_check_mark: Test
+      - [x] :heavy_check_mark: Build
       - [ ] Run
       - [ ] Run & Watch
     - [ ] Rust Support

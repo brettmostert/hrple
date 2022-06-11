@@ -20,7 +20,6 @@ func (e *Executer) initBuild() {
 
 func ExecuteBuild(cmd *cli.Command, args []string) ([]interface{}, error) {
 	builder := config.NewBuilder(cmd.Flags().GetString("f"))
-
 	err := builder.Build(cmd.Args().Get("project"), cmd.Flags().GetString("release"))
 
 	return nil, err

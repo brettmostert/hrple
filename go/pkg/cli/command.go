@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"fmt"
 	"os"
 	"strings"
 
@@ -58,11 +57,12 @@ func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 	if err != nil {
 		return nil, exitError.New("Unable to parse flags, args: "+strings.Join(args, " "), exitError.InvalidFlags)
 	}
-	fmt.Printf("argsToExecute %v %v\n", argsToExecute, cmdToExecute.Name)
+
+	// fmt.Printf("argsToExecute %v %v\n", argsToExecute, cmdToExecute.Name)
 
 	i := 0
 	for _, arg := range cmdToExecute.Args().args {
-		if i >= len(argsToExecute)-1 {
+		if i > len(argsToExecute)-1 {
 			break
 		}
 

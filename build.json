@@ -25,7 +25,7 @@
 			]
 		},
 		{
-			"name": "builder",
+			"name": "bob",
 			"lang": "go",
 			"type": "cli",
 			"path": "./cmd/bob",
