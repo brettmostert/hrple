@@ -1,0 +1,26 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "habit",
+            "group": "hrpl",
+            "database": "habit",
+            "username": "user",
+            "password": "password"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "local",
+            "group": "hrpl",
+            "database": "hrple",
+            "username": "user",
+            "password": "password"
+        }
+    ]
+}

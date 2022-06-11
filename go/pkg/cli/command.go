@@ -2,6 +2,7 @@ package cli
 
 import (
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/brettmostert/hrple/go/pkg/errors/exitError"
@@ -61,12 +62,12 @@ func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 	// fmt.Printf("argsToExecute %v %v\n", argsToExecute, cmdToExecute.Name)
 
 	i := 0
-	for _, arg := range cmdToExecute.Args().args {
+	sort.Ints(cmdToExecute.Args().keys)
+	for _, key := range cmdToExecute.Args().keys {
 		if i > len(argsToExecute)-1 {
 			break
 		}
-
-		arg.value = argsToExecute[i]
+		cmdToExecute.Args().args[key].value = argsToExecute[i]
 		i++
 	}
 

@@ -1,13 +1,15 @@
 package cli
 
 type ArgSet struct {
-	args map[string]*Arg
+	args map[int]*Arg
+	keys []int
 }
 
 func (cmd *Command) Args() *ArgSet {
 	if cmd.argSet == nil {
 		cmd.argSet = &ArgSet{}
-		cmd.argSet.args = make(map[string]*Arg)
+		cmd.argSet.args = make(map[int]*Arg)
+		cmd.argSet.keys = make([]int, 0)
 	}
 
 	return cmd.argSet
@@ -30,5 +32,11 @@ func (set *ArgSet) Get(name string) string {
 }
 
 func (set *ArgSet) Set(name string) {
-	set.args[name] = &Arg{Name: name}
+	key := len(set.args)
+	set.keys = append(set.keys, key)
+	set.args[key] = &Arg{Name: name}
+}
+
+func (set *ArgSet) Length() int {
+	return len(set.args)
 }

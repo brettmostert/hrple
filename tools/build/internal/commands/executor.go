@@ -27,6 +27,7 @@ func NewExecuter() *Executer {
 	e.initBuild()
 	e.initTest()
 	e.initProject()
+	e.initTern()
 
 	return e
 }
