@@ -10,8 +10,10 @@ func (e *Executer) initTest() {
 	cmd := &cli.Command{
 		Name: "test",
 		Run:  ExecuteTest,
-		Args: []string{"moo"},
+		// Args: []string{"moo"},
 	}
+
+	cmd.Args().Set("moo")
 
 	cmd.Flags().String("name", "", "help message for name")
 	cmd.Flags().String("lastname", "meow", "help message for lastname")

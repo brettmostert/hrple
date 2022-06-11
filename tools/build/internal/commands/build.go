@@ -9,9 +9,9 @@ func (e *Executer) initBuild() {
 	cmd := &cli.Command{
 		Name: "build",
 		Run:  ExecuteBuild,
-		Args: []string{"project"},
+		// Args: []string{"project"},
 	}
-
+	cmd.Args().Set("project")
 	cmd.Flags().String("f", "build.json", "")
 	cmd.Flags().String("release", "", "")
 
@@ -21,7 +21,7 @@ func (e *Executer) initBuild() {
 func ExecuteBuild(cmd *cli.Command, args []string) ([]interface{}, error) {
 	builder := config.NewBuilder(cmd.Flags().GetString("f"))
 
-	err := builder.Build(args[0], cmd.Flags().GetString("release"))
+	err := builder.Build(cmd.Args().Get("project"), cmd.Flags().GetString("release"))
 
 	return nil, err
 }

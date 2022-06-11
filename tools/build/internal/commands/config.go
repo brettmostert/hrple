@@ -10,7 +10,7 @@ func (e *Executer) initConfig() {
 		Name: "config",
 		Run:  ExecuteConfig,
 		// Args: []string{"moo"},
-	}	
+	}
 
 	subCmd := &cli.Command{
 		Name: "print",

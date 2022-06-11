@@ -17,6 +17,14 @@ func ExecuteTestCommand(cmd *Command, args []string) ([]interface{}, error) {
 	return returnValue, nil
 }
 
+// returns a paramter value based on arg 2
+func ExecuteTestCommandReturningParamValue(cmd *Command, args []string) ([]interface{}, error) {
+	returnValue := make([]interface{}, 1)
+	returnValue[0] = cmd.Args().Get(args[1])
+
+	return returnValue, nil
+}
+
 func setupCliForTesting() *Command {
 	rootCommand := &Command{
 		Name: "cli",
@@ -40,17 +48,22 @@ func setupCliForTesting() *Command {
 
 	subCmdCWithParams := &Command{
 		Name: "subCmdCWithParams",
-		Args: []string{"arg1", "arg2"},
-		Run:  ExecuteTestCommand,
+		// Args: []string{"arg1", "arg2"},
+		Run: ExecuteTestCommandReturningParamValue,
 	}
+
+	subCmdCWithParams.Args().Set("arg1")
+	subCmdCWithParams.Args().Set("arg2")
 
 	rootCommand.AddCommand(subCmdCWithParams)
 
 	subCmdDWithParamsAndFlags := &Command{
 		Name: "subCmdDWithParamsAndFlags",
-		Args: []string{"arg1"},
-		Run:  ExecuteTestCommand,
+		// Args: []string{"arg1"},
+		Run: ExecuteTestCommand,
 	}
+
+	subCmdDWithParamsAndFlags.Args().Set("arg1")
 
 	subCmdDWithParamsAndFlags.Flags().String("name", "", "help message for name")
 	subCmdDWithParamsAndFlags.Flags().String("lastname", "meow", "help message for lastname")
@@ -151,12 +164,13 @@ func TestExecuteSubCommandWithParam(t *testing.T) {
 	cli := setupCliForTesting()
 
 	returnValues, err := cli.Execute(Options{
-		Args: []string{"subCmdCWithParams", "abc", "xyz"},
+		Args: []string{"subCmdCWithParams", "abc", "arg1"},
 	})
 
-	expected := make([]interface{}, 2)
+	fmt.Printf("ccc %v\n", returnValues)
+
+	expected := make([]interface{}, 1)
 	expected[0] = "abc"
-	expected[1] = "xyz"
 
 	if err != nil && len(returnValues) != len(expected) {
 		t.Errorf("expected: '%v' with no errors, got: '%v', error: '%v'", expected, returnValues, err)
@@ -164,7 +178,7 @@ func TestExecuteSubCommandWithParam(t *testing.T) {
 
 	for i := range expected {
 		if returnValues[i] != expected[i] {
-			t.Errorf("expected: '%v' at index '%v', got: '%v'", returnValues[i], i, expected[i])
+			t.Errorf("expected: '%v' at index '%v', got: '%v'", expected[i], i, returnValues[i])
 		}
 	}
 }

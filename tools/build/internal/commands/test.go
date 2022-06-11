@@ -1,6 +1,8 @@
 package commands
 
 import (
+	"fmt"
+
 	"github.com/brettmostert/hrple/go/pkg/cli"
 	config "github.com/brettmostert/hrple/tools/build/internal/builder"
 )
@@ -9,9 +11,9 @@ func (e *Executer) initTest() {
 	cmd := &cli.Command{
 		Name: "test",
 		Run:  ExecuteTest,
-		Args: []string{"project"},
+		// Args: []string{"project"},
 	}
-
+	cmd.Args().Set("project")
 	cmd.Flags().String("f", "build.json", "")
 
 	e.rootCommand.AddCommand(cmd)
@@ -19,7 +21,8 @@ func (e *Executer) initTest() {
 
 func ExecuteTest(cmd *cli.Command, args []string) ([]interface{}, error) {
 	builder := config.NewBuilder(cmd.Flags().GetString("f"))
-	err := builder.Test(args[0])
+	fmt.Printf("%s\n", args)
+	err := builder.Test(cmd.Args().Get("project"))
 
 	return nil, err
 }

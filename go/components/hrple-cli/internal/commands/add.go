@@ -10,8 +10,11 @@ func (e *Executer) initAdd() {
 	cmd := &cli.Command{
 		Name: "add",
 		Run:  ExecuteAdd,
-		Args: []string{"name"},
+		// Args: []string{"name"},
 	}
+
+	cmd.Args().Set("name")
+
 	e.rootCommand.AddCommand(cmd)
 }
 

@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"os"
 	"strings"
 
@@ -14,7 +15,7 @@ type Command struct {
 	Example          string
 	Run              func(cmd *Command, args []string) ([]interface{}, error)
 	HelpType         Help
-	Args             []string
+	argSet           *ArgSet
 
 	flagSet *FlagSet
 	// flags   []*string
@@ -46,7 +47,7 @@ func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 		argsToExecute = args
 	case argsLen > 0:
 		cmdToExecute = cmd.findCommand(args)
-		argsToExecute = args
+		argsToExecute = args[1:]
 	}
 
 	if cmdToExecute == nil {
@@ -56,6 +57,17 @@ func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 	err := cmdToExecute.parseFlags(argsToExecute)
 	if err != nil {
 		return nil, exitError.New("Unable to parse flags, args: "+strings.Join(args, " "), exitError.InvalidFlags)
+	}
+	fmt.Printf("argsToExecute %v %v\n", argsToExecute, cmdToExecute.Name)
+
+	i := 0
+	for _, arg := range cmdToExecute.Args().args {
+		if i >= len(argsToExecute)-1 {
+			break
+		}
+
+		arg.value = argsToExecute[i]
+		i++
 	}
 
 	return cmdToExecute.Run(cmdToExecute, argsToExecute)
@@ -98,7 +110,7 @@ func (rootCmd *Command) findCommand(args []string) *Command {
 		argsWithoutFlags := stripFlags(args[1:])
 		command = innerfind(parentCmd, argsWithoutFlags)
 		if command == nil {
-			if len(parentCmd.Args) > 0 {
+			if len(parentCmd.Args().args) > 0 {
 				command = parentCmd
 			}
 		}
