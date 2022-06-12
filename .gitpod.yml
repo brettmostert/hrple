@@ -7,3 +7,4 @@ tasks:
     init: bash ./scripts/bootstrap.sh
   - name: db
     init: bash ./scripts/db.sh
+    command: bash ./scripts/db.sh 
