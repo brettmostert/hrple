@@ -10,3 +10,7 @@ tasks:
     command: bash ./scripts/db.sh 
   - name: envs
     command: source ./.env.local
+
+vscode:
+  extensions:
+    - fosshaas.fontsize-shortcuts
