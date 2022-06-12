@@ -4,6 +4,6 @@
 
 tasks:
   - name: bootstrap project
-    init: sh ./scripts/boostrap.sh
+    init: sh ./scripts/bootstrap.sh
   - name: db
     init: sh ./scripts/db.sh
