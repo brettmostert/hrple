@@ -4,6 +4,6 @@
 
 tasks:
   - name: bootstrap project
-    init: sh ./hrple/scripts/boostrap.sh
+    init: sh ./scripts/boostrap.sh
   - name: db
-    init: sh ./hrple/scripts/db.sh
+    init: sh ./scripts/db.sh
