@@ -3,6 +3,8 @@ tmp/
 vendor/
 dist
 deployment
+.vscode
+assets
 
 # Exclude "build-time" ignore files.
 .dockerignore
