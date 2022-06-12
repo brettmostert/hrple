@@ -8,3 +8,5 @@ tasks:
   - name: db
     init: docker pull postgres
     command: bash ./scripts/db.sh 
+  - name: envs
+    command: source ./.env.local

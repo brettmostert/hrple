@@ -6,7 +6,7 @@
             "port": 5432,
             "driver": "PostgreSQL",
             "name": "habit",
-            "group": "hrpl",
+            "group": "hrple",
             "database": "habit",
             "username": "user",
             "password": "password"
@@ -17,7 +17,7 @@
             "port": 5432,
             "driver": "PostgreSQL",
             "name": "local",
-            "group": "hrpl",
+            "group": "hrple",
             "database": "hrple",
             "username": "user",
             "password": "password"
