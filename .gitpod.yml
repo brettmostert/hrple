@@ -4,7 +4,7 @@
 
 tasks:
   - name: bootstrap project
-    init: bash ./scripts/bootstrap.sh
+    init: ./scripts/bootstrap.sh
   - name: db
-    init: bash ./scripts/db.sh
-    command: bash ./scripts/db.sh 
+    init: docker pull postgres
+    command: ./scripts/db.sh 
