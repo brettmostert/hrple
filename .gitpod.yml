@@ -5,6 +5,6 @@
 tasks:
   - init: make
   - name: bootstrap project
-    init: sh ./scripts/boostrap.sh
+    init: sh ./hrple/scripts/boostrap.sh
   - name: db
-    command: sh ./scripts/db.sh
+    init: sh ./hrple/scripts/db.sh
