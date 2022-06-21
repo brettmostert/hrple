@@ -1,7 +1,8 @@
 CREATE TYPE activity_type AS ENUM ('behaviour', 'task');
 
 CREATE TABLE activity (
-  id UUID PRIMARY KEY,
+  id serial PRIMARY KEY,
+  coalation_id UUID NOT NULL UNIQUE,
   name VARCHAR(50) NOT NULL,
   created_time TIMESTAMP NOT NULL,
   modified_time TIMESTAMP NOT NULL,
@@ -12,5 +13,5 @@ CREATE TABLE activity (
 );
 
 ---- create above / drop below ----
-DROP TYPE activity_type;
 DROP TABLE activity;
+DROP TYPE activity_type;

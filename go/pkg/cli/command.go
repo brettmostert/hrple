@@ -59,8 +59,6 @@ func (cmd *Command) Execute(options ...Options) ([]interface{}, error) {
 		return nil, exitError.New("Unable to parse flags, args: "+strings.Join(args, " "), exitError.InvalidFlags)
 	}
 
-	// fmt.Printf("argsToExecute %v %v\n", argsToExecute, cmdToExecute.Name)
-
 	i := 0
 	sort.Ints(cmdToExecute.Args().keys)
 	for _, key := range cmdToExecute.Args().keys {

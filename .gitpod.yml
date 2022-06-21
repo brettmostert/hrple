@@ -13,17 +13,17 @@ tasks:
 
 vscode:
   extensions:
-    - fosshaas.fontsize-shortcuts
+    # - fosshaas.fontsize-shortcuts
     - golang.go
     - ms-azuretools.vscode-docker
-    - GitHub.copilot
+    # - GitHub.copilot
     - eamodio.gitlens
     - yzhang.markdown-all-in-one
-    - bierner.markdown-emoji
+    # - bierner.markdown-emoji
     - shd101wyy.markdown-preview-enhanced
     - DavidAnson.vscode-markdownlint
     - mtxr.sqltools
     - mtxr.sqltools-driver-pg
-    - sidp.strict-whitespace
+    # - sidp.strict-whitespace
     - hbenl.vscode-test-explorer
-    - coddx.coddx-alpha
+    # - coddx.coddx-alpha
