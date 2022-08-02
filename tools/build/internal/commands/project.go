@@ -27,6 +27,23 @@ func (e *Executer) initProject() {
 
 	cmd.AddCommand(&cmdAdd)
 
+	cmdList := cli.Command{
+		Name: "list",
+		Run:  ExecuteListProjects,
+	}
+
+	cmdList.Flags().String("f", "build.json", "")
+
+	cmdLs := cli.Command{
+		Name: "ls",
+		Run:  ExecuteListProjects,
+	}
+
+	cmdLs.Flags().String("f", "build.json", "")
+
+	cmd.AddCommand(&cmdList)
+	cmd.AddCommand(&cmdLs)
+
 	cmdRemove := cli.Command{
 		Name: "remove",
 		Run:  ExecuteRemoveProject,
@@ -67,6 +84,14 @@ func ExecuteAddProject(cmd *cli.Command, args []string) ([]interface{}, error) {
 	}
 
 	err := builder.AddProject(project)
+
+	return nil, err
+}
+
+func ExecuteListProjects(cmd *cli.Command, args []string) ([]interface{}, error) {
+	builder := config.NewBuilder(cmd.Flags().GetString("f"))
+
+	err := builder.ListProjects()
 
 	return nil, err
 }
